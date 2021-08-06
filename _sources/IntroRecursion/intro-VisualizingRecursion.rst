@@ -24,6 +24,76 @@ some interesting pictures. As you watch these pictures take shape you
 will get some new insight into the recursive process that may be helpful
 in cementing your understanding of recursion.
 
+**Drawing Fractals**
+
+For our purposes, a fractal is a drawing which also has self-similar structure, where it can be defined in terms of itself.
+
+Let us start by looking at the famous Koch fractal. An order 0 Koch fractal is simply a straight line of a given size.
+
+.. _fig_koch_0:
+
+.. figure:: Figures/koch_0.png
+   :align: center
+
+An order 1 Koch fractal is obtained like this: instead of drawing just one line, draw instead four smaller segments, in the pattern shown here:
+
+.. _fig_koch_1:
+
+.. figure:: Figures/koch_1.png
+   :align: center
+
+Now what would happen if we repeated this Koch pattern again on each of the order 1 segments? We’d get this order 2 Koch fractal:
+
+.. _fig_koch_2:
+
+.. figure:: Figures/koch_2.png
+   :align: center
+
+Repeating our pattern again gets us an order 3 Koch fractal:
+
+.. _fig_koch_3:
+
+.. figure:: Figures/koch_3.png
+   :align: center
+
+
+.. activecode:: kochcode
+
+    import turtle
+
+    def koch(t, order, size):
+        """
+        Make turtle t draw a Koch fractal of 'order' and 'size'.
+        Leave the turtle facing the same direction.
+        """
+
+        if order == 0:          # The base case is just a straight line
+            t.forward(size)
+        else:
+            koch(t, order-1, size/3)   # Go 1/3 of the way
+            t.left(60)
+            koch(t, order-1, size/3)
+            t.right(120)
+            koch(t, order-1, size/3)
+            t.left(60)
+            koch(t, order-1, size/3)
+
+    def main():
+        t = turtle.Turtle()
+        myWin = turtle.Screen()
+        t.pencolor("darkblue")
+        myWin.bgcolor("lightgreen")
+        t.penup()
+        t.goto(-100,0)
+        t.pendown()
+        koch(t, 3, 200)
+        myWin.exitonclick()
+
+    main()
+
+
+
+
 For our next program we are
 going to draw a fractal tree. Fractals come from a branch of
 mathematics, and have much in common with recursion. The definition of a
